@@ -383,7 +383,7 @@ code {
 <li>
 <h3 id="burgerpicker"><strong>BurgerPicker</strong></h3>
   <br>
-  <iframe width="600" height="370" src="https://www.youtube.com/embed/-KODHGPx7LI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="600" height="370" src="https://www.youtube.com/embed/4dPTzGbhBFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </li>
 </ul>
 <p><br></br></p>
@@ -405,7 +405,7 @@ code {
 <h3 id="%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%9F%E5%86%85%E5%AE%B9%E3%83%BB%E6%8A%80%E8%A1%93"><a href="#Implement"><strong>実装した内容・技術</strong></a></h3>
 <ol>
 <li>
-<h3 id="%E3%83%87%E3%83%97%E3%82%B9%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6"><a href="#DepthShadow"><strong>デプスシャドウ</strong></a></h3>
+<h3 id="%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6%E3%83%9E%E3%83%83%E3%83%97"><a href="#Shadow"><strong>シャドウマップ</strong></a></h3>
 </li>
 <li>
 <h3 id="%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%BC%E3%83%89%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0"><a href="#Deffered"><strong>ディファードライティング</strong></a></h3>
@@ -459,11 +459,6 @@ https://github.com/kw17MT/Burger
 <h3 id="%E4%BD%BF%E7%94%A8%E3%83%84%E3%83%BC%E3%83%AB">使用ツール</h3>
 <p>Visual Studio 2019<br>
 Effekseer<br>
-<br></p>
-</li>
-<li>
-<h3 id="%E4%B8%8A%E8%A8%98%E3%83%84%E3%83%BC%E3%83%AB%E3%82%92%E5%88%A9%E7%94%A8%E3%81%97%E3%81%9F%E7%90%86%E7%94%B1">上記ツールを利用した理由</h3>
-<p>チームメンバー全員が使い慣れたゲームエンジンやエディタを使用することで作業速度の差を無くし、当人自身の作業効率を高めるため。
 <br></p>
 </li>
 <li>
@@ -690,11 +685,13 @@ DirectX12<br>
 <br></br></p>
 <p><a id = 'Implement'></a></p>
 <h1 id="5-%E5%AE%9F%E8%A3%85%E3%81%97%E3%81%9F%E5%86%85%E5%AE%B9%E3%83%BB%E6%8A%80%E8%A1%93">5. <strong>実装した内容・技術</strong></h1>
-<p><a id = 'DepthShadow'></a></p>
-<h1 id="i-%E3%83%87%E3%83%97%E3%82%B9%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6">i. <strong>デプスシャドウ</strong></h1>
-<p>私のゲームでは、まず先にシャドウマップを作成しています。特に今回はデプスシャドウを実装しました。
-シャドウを実装するにあたって、始めは投影シャドウを採用していました。しかし、ゲーム画面中にオブジェクトとオブジェクトが立体的に重なる箇所があり、上にある物体に下の物体の影がついてしまいとても不自然な出来になってしまったので、深度値を利用したデプスシャドウを採用しました。</p>
-<p>まず、シャドウとなるオフスクリーン画像を作成します。赤い画像はシャドウキャスターの深度値が記録されています。<br>
+<p><a id = 'Shadow'></a></p>
+<h1 id="i-%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6%E3%83%9E%E3%83%83%E3%83%97">i. <strong>シャドウマップ</strong></h1>
+<p>レンダリングにあたり私のゲームでは、まず先にシャドウマップを作成しています。特に今回は分散シャドウを実装しました。
+シャドウを実装するにあたって、始めは投影シャドウを採用していました。しかし、ゲーム画面中にオブジェクトとオブジェクトが立体的に重なる箇所があり、上にある物体に下の物体の影がついてしまいとても不自然な出来になってしまいました。そこで、次にデプスシャドウを採用しました。
+ところが、シャドウのジャギーが気になることからソフトシャドウの1つである深度値を利用した分散シャドウを採用しました。</p>
+<h3 id="%E3%83%87%E3%83%97%E3%82%B9%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6">デプスシャドウ</h3>
+<p>まず、シャドウとなるオフスクリーン画像を作成します。下の画像はシャドウキャスターの深度値が記録されています。<br>
 この深度値を用いて、後に記述するディファードライディング部分でシャドウを落とすべきかそうでないか判定を行います。</p>
 <p><img src="https://user-images.githubusercontent.com/54493763/130779324-2848b03a-5f6d-4ee1-a992-a23edb5a6641.png" alt="shadow"></p>
 <p>以下に投影シャドウとデプスシャドウの両方を実装した結果の比較があります。</p>
@@ -710,6 +707,30 @@ DirectX12<br>
 この画像のように、具材の位置が上下になる箇所があります。<br>
 上の具材に不自然な影が映ってしまわないようにするために役立っています。
 <br></br></p>
+<h3 id="%E5%88%86%E6%95%A3%E3%82%B7%E3%83%A3%E3%83%89%E3%82%A6">分散シャドウ</h3>
+<p>上記に述べたデプスシャドウを実装後、同じ特性を備えた分散シャドウに切り替えました。
+まず、デプスシャドウでは深度値のみを使用しましたが、今回は深度値の二乗もシャドウマップに書き込みます。
+深度値はデプスシャドウ同様に、シャドウが落ちるべきでない場所に落ちないようにするために使用します。
+深度値の二乗については以降で使用するチェビシェフの不等式という分散と平均値を用いた影が落ちる確率の算出に用います。</p>
+<p>以下が分散シャドウに用いるシャドウマップです。R要素に深度値、G要素にその二乗を記録しています。</p>
+<p><img src="https://user-images.githubusercontent.com/54493763/145807060-b58d4b11-1494-45d2-9ac7-d4428c28fc04.png" alt="4096x2048"></p>
+<p>次に周囲ピクセルとの深度値の平均を取得します。今回平均値を算出するにあたって後述のブルームフィルタで使用するガウシアンブラーを利用しました。
+これは縦方向と横方向にダウンサンプリングし、サイズが1/4になるため、結果4x4範囲の平均を取ることができます。</p>
+<p>以下が縦方向と横方向にダウンサンプリングした結果の画像です。</p>
+<p><img src="https://user-images.githubusercontent.com/54493763/145807064-dc730cdb-f156-41d5-a62f-fa4059bff218.png" alt="2048x2048"><br>
+　　　　　　　　　　　横方向にダウンサンプリング
+<img src="https://user-images.githubusercontent.com/54493763/145807062-12e53476-2a83-4ca2-afb3-2de30e9fb59a.png" alt="2048x1024"><br>
+　　　　　　　　　　　縦方向にダウンサンプリング</p>
+<p>ガウシアンブラーが縦横方向に1回ずつかかってできたシャドウマップとチェビシェフの不等式を用いて影の濃さを決定します。</p>
+<blockquote>
+<p>チェビシェフの不等式とは，確率変数X の平均値を μ，標準偏差を σ としたときに以下で与えられる不等式である．任意の確率分布において，ある値 (μ+kσ または μ-kσ) 以上または以下の確率がどれくらいかの大体の見当をつけるのに用いる．<br>
+引用元　https://data-science.gr.jp/theory/tbs_chebyshev_inequality.html</p>
+</blockquote>
+<p>最後に元々の色とシャドウカラーを光が当たる確率を用いて線形補完して最終的な影の強さを決定します。
+以下にデプスシャドウと分散シャドウの差が分かるような画像を表示します。</p>
+<p><img src="https://user-images.githubusercontent.com/54493763/145927560-00be68ae-f6f3-4b54-b2df-9ce5f2bc7551.png" alt="Depth_compare">
+<img src="https://user-images.githubusercontent.com/54493763/145927562-35cb7c62-4742-4e85-bf6a-eaac54ae2a47.png" alt="VSM_compare"><br>
+　　　デプスシャドウ　　　　　　　　　　分散シャドウ</p>
 <p><a id = 'Deffered'></a></p>
 <h1 id="ii-%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%BC%E3%83%89%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">ii. <strong>ディファードライティング</strong></h1>
 <p>次に、ディファードレンダリングを行い、オブジェクトに対してシャドウマップを適用したり、ライティングを行ったりしています。
