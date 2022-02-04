@@ -383,7 +383,7 @@ code {
 <li>
 <h3 id="burgerpicker"><strong>BurgerPicker</strong></h3>
   <br>
-  <iframe width="600" height="370" src="https://www.youtube.com/embed/4dPTzGbhBFY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="600" height="370" src="https://www.youtube.com/embed/GNfExT7mhNE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </li>
 </ul>
 <p><br></br></p>
@@ -717,10 +717,8 @@ DirectX12<br>
 <p>次に周囲ピクセルとの深度値の平均を取得します。今回平均値を算出するにあたって後述のブルームフィルタで使用するガウシアンブラーを利用しました。
 これは縦方向と横方向にダウンサンプリングし、サイズが1/4になるため、結果4x4範囲の平均を取ることができます。</p>
 <p>以下が縦方向と横方向にダウンサンプリングした結果の画像です。</p>
-<p><img src="https://user-images.githubusercontent.com/54493763/145807064-dc730cdb-f156-41d5-a62f-fa4059bff218.png" alt="2048x2048"><br>
-　　　　　　　　　　　横方向にダウンサンプリング
-<img src="https://user-images.githubusercontent.com/54493763/145807062-12e53476-2a83-4ca2-afb3-2de30e9fb59a.png" alt="2048x1024"><br>
-　　　　　　　　　　　縦方向にダウンサンプリング</p>
+<img src="https://user-images.githubusercontent.com/54493763/152476028-951be54f-ef84-481b-99ab-d1cd49bfb8dc.png" width="49.5%">  
+<img src="https://user-images.githubusercontent.com/54493763/152476030-b148ce42-afee-4546-8782-1adbdfbbf320.png" width="49.5%">  
 <p>ガウシアンブラーが縦横方向に1回ずつかかってできたシャドウマップとチェビシェフの不等式を用いて影の濃さを決定します。</p>
 <blockquote>
 <p>チェビシェフの不等式とは，確率変数X の平均値を μ，標準偏差を σ としたときに以下で与えられる不等式である．任意の確率分布において，ある値 (μ+kσ または μ-kσ) 以上または以下の確率がどれくらいかの大体の見当をつけるのに用いる．<br>
@@ -734,10 +732,8 @@ DirectX12<br>
 <p><a id = 'Deffered'></a></p>
 <h1 id="ii-%E3%83%87%E3%82%A3%E3%83%95%E3%82%A1%E3%83%BC%E3%83%89%E3%83%A9%E3%82%A4%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0">ii. <strong>ディファードライティング</strong></h1>
 <p>次に、ディファードレンダリングを行い、オブジェクトに対してシャドウマップを適用したり、ライティングを行ったりしています。
-マルチレンダリングターゲットを利用してアルベドマップ、法線マップ、深度値を持つマップを作成し、加えてレンダリングの始めに作成したシャドウマップを用いて画像を作成しています。
-<img src="https://user-images.githubusercontent.com/54493763/130778812-157dbac1-01b6-4e4a-be12-b659d7f99135.png" alt="albedo"></p>
-<p><img src="https://user-images.githubusercontent.com/54493763/130778808-8001802b-141b-4dd3-bcf9-94a36f3ef0ba.png" alt="normal"></p>
-<p><img src="https://user-images.githubusercontent.com/54493763/130778800-6ed984e4-f6fc-4fa2-9f57-7087d6df8a0b.png" alt="depth"></p>
+マルチレンダリングターゲットを利用してアルベドマップ、法線マップ、深度値を持つマップを作成し、加えてレンダリングの始めに作成したシャドウマップを用いて画像を作成しています。</p>
+<p><img src="https://user-images.githubusercontent.com/54493763/152474669-30045bf4-8c5c-43d2-91ea-445feaf7a0c3.png" alt="deffered"></p>
 <p>ライディングは以下の順序で行っています。<br>
 1.アルベドマップから拡散反射光の色を取得。<br>
 2.法線マップから法線情報を取得。<br>
@@ -754,10 +750,7 @@ DirectX12<br>
 <p><a id = 'PBR'></a></p>
 <h1 id="iii-pbr-physically-based-rendering">iii. <strong>PBR (Physically based rendering)</strong></h1>
 <p>以下に非正規化ランバート拡散反射光とフォン鏡面反射光を用いたライティングの計算結果とPBRを用いてライティングした結果があります。</p>
-<p><img src="https://user-images.githubusercontent.com/54493763/130793329-1b05f6ba-2b5e-4084-b500-dd580ce5b498.png" alt="nonPBR"><br>
-　　　　　　　　　　　　　非正規化ランバート拡散反射光　＋　フォン鏡面反射光
-<img src="https://user-images.githubusercontent.com/54493763/130793475-8ebec828-81fc-422c-8211-d96f5e0aa499.png" alt="PBR"><br>
-　　　　　　　　　　　　　　　　　　　　　　　　　　PBR適用</p>
+<p><img src="https://user-images.githubusercontent.com/54493763/152474762-42e709dc-1d7e-4b5f-a972-bbc35d072d0a.png" alt="PBR1"></p>
 <p>1枚目ではランバート拡散反射光とフォン鏡面反射光を用いたライティングです。拡散反射光は正規化（円周率で除算）していないため、とても明るくなってしまっています。
 さらに、鏡面反射光と拡散反射光を単純に加算しているので設定している光の総量よりも大きくなってしまいます。<br>
 2枚目ではPBRを実装したライティングを行っています。まず、拡散反射光についてフレネル反射という入射角に応じて反射する光の量も大きくなる性質を考慮しました。光を受ける表面の粗さ、光源と視点へのベクトルの内積、法線と光源へのベクトルの内積を用いて拡散反射光の強さを計算し、最後に正規化を行います。
@@ -766,11 +759,8 @@ DirectX12<br>
 <br></br></p>
 <p><a id = 'AOMap'></a></p>
 <h1 id="iv-%E7%96%91%E4%BC%BCao%E3%83%9E%E3%83%83%E3%83%97">iv. <strong>疑似AOマップ</strong></h1>
-<p><img src="https://user-images.githubusercontent.com/54493763/130784363-8f0583d1-2c70-4270-b7f2-d0809d082ce5.png" alt="nonAO"><br>
-　　　　　　　　　　　　　　　　　　　　　　　　　PBRのみ
-<img src="https://user-images.githubusercontent.com/54493763/130784366-67f8cc13-9fcb-467a-934b-909781f7cc46.png" alt="AO"><br>
-　　　　　　　　　　　　　　　　　　　　　　　疑似AOマップ適用
-<br></br>
+<p><img src="https://user-images.githubusercontent.com/54493763/152474914-7c1b899f-b705-4e89-b9a2-250dff6679b8.png" alt="AO1"></p>
+<p><br></br>
 テクスチャの1つとしてAOマップを用意しているわけではなく、法線情報とディレクションライトの方向を利用して環境光の適用具合をコントロールしています。<br>
 オブジェクトの上面にはあまり影響がでませんが側面には影響があり、色の明暗をはっきりさせています。
 分かりやすい部分はプレイヤーのあごに当たる部分や、帽子の側面です。</p>
@@ -835,14 +825,8 @@ DirectX12<br>
 フォワードレンダリング、ディファードレンダリングの全ての描画が書かれたオフスクリーンをターゲットにしています。
 ピクセルシェーダ―において近傍4ピクセルとの輝度の差を調査し、差が大きい時近傍ピクセルとのブレンドを行います。
 以下の画像は通常画像とアンチエイリアス適用後の画像です。</p>
-<p><img src="https://user-images.githubusercontent.com/54493763/130891591-4b4d0334-e8c2-4199-bfad-a76efce43410.png" alt="nonFXAA"><br>
-　　　　　　　　　　　　　　　　　　　　　　　　FXAA非適用
-<img src="https://user-images.githubusercontent.com/54493763/130891597-a9cc8435-f9b3-44b7-a79c-ee0f9e28391f.png" alt="FXAA"><br>
-　　　　　　　　　　　　　　　　　　　　　　　　　FXAA適用</p>
 <p>全体像での比較はメニュー下のゲージくらいしか分かりにくいため、拡大した比較図を用意しました。</p>
-<img src="https://user-images.githubusercontent.com/54493763/130892190-cf140960-ab52-4763-9a51-87aaf4dbbd2d.png" width="410">
-<img src="https://user-images.githubusercontent.com/54493763/130892186-fd33275e-d5d4-4251-bcf0-2755b4f9538c.png" width="410">  
-&emsp;&emsp;&emsp;　　　　　　　FXAA非適用　　　　　　　　　　　　　　　　　　　　　　FXAA適用
+<p><img src="https://user-images.githubusercontent.com/54493763/152475671-e5756a8c-9386-4b3b-a8d4-570215d02fd0.png" alt="FXAA_compare"></p>
 <p>特にチーズや卵が拡大すると分かりやすかったので比較に上げました。
 チーズの縁部分はジャギーが消えていることが確認できます。</p>
 <p><br></br></p>
